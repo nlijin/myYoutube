@@ -5,9 +5,9 @@ import ButtonsList from "./ButtonsList";
 
 const BodyContainer = () => {
   return (
-    <div className="grid grid-flow-col grid-cols-7 bg-green-400">
+    <div className="grid grid-flow-col grid-cols-9">
       <Sidebar />
-      <div className="col-span-6">
+      <div className="col-span-8">
         <ButtonsList />
         <VideoContainer />
       </div>

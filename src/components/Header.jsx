@@ -10,7 +10,7 @@ const Header = () => {
   };
 
   return (
-    <div className="grid grid-flow-col shadow-lg p-2 items-center">
+    <div className="grid grid-flow-col shadow-sm p-2 items-center">
       <div className="flex col-span-1">
         <img
           onClick={() => toggleMenuHandler()}
@@ -27,9 +27,9 @@ const Header = () => {
       <div className="col-span-10 text-center">
         <input
           type="text"
-          className="w-1/4 border-2 border-gray-200 p-2 my-2 rounded-l-full outline-gray-400 "
+          className="w-2/4 border-2 border-gray-200 py-1 px-2 my-1 rounded-l-full outline-gray-300"
         />
-        <button className="border-gray-200 hover:border-gray-300 hover:bg-gray-300 border-2 rounded-r-full p-2 my-2 bg-gray-200">
+        <button className="border-gray-200 hover:border-gray-300 hover:bg-gray-300 border-2 rounded-r-full py-1 px-2 my-1 bg-gray-200">
           Search
         </button>
       </div>

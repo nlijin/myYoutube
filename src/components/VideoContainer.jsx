@@ -15,7 +15,13 @@ const VideoContainer = () => {
     setVideos(json.items);
   };
 
-  return <div className="bg-fuchsia-500">videocard</div>;
+  return (
+    <div className="flex flex-wrap justify-evenly">
+      {videos.map((video) => (
+        <VideoCard key={video.id} info={video} />
+      ))}
+    </div>
+  );
 };
 
 export default VideoContainer;
