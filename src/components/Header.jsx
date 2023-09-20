@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constants.js";
+import { cacheResults } from "../utils/searchSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -9,25 +10,35 @@ const Header = () => {
   const [searchSuggestions, setSearchSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(true);
 
+  const searchCache = useSelector((store) => store.search);
+
   const toggleMenuHandler = () => {
     dispatch(toggleMenu());
   };
 
-  const searchResponse = async () => {
-    const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
-    const json = await data.json();
-    setSearchSuggestions(json[1]);
-    console.log("api call made", searchQuery);
-  };
-
   useEffect(() => {
     const timer = setTimeout(() => {
-      searchResponse();
+      if (searchCache[searchQuery]) {
+        setSearchSuggestions(searchCache[searchQuery]);
+      } else {
+        searchResponse();
+      }
     }, 200);
+
     return () => {
       clearTimeout(timer);
     };
   }, [searchQuery]);
+
+  const searchResponse = async () => {
+    console.log("API CALL - " + searchQuery);
+    const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
+    const json = await data.json();
+    setSearchSuggestions(json[1]);
+
+    //update cache
+    dispatch(cacheResults({ [searchQuery]: json[1] }));
+  };
 
   return (
     <div className="grid grid-flow-col shadow-sm p-2 items-center">
